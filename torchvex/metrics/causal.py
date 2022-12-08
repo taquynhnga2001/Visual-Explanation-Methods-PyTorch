@@ -12,8 +12,10 @@ def get_gaussian_filter(size, sig):
         size = (size, size)
     kernel = torch.zeros(*size)
     size = torch.tensor(size).float()
-    centroid_min = ((size-1) // 2).long()
-    centroid_max = (size // 2).long()
+    # centroid_min = ((size-1) // 2).long()
+    # centroid_max = (size // 2).long()
+    centroid_min = torch.div(size-1, 2, rounding_mode='trunc').long()
+    centroid_max = torch.div(size, 2, rounding_mode='trunc').long()
 
     kernel[centroid_min[0]:centroid_max[0]+1,
            centroid_min[1]:centroid_max[1]+1].fill_(1.)
